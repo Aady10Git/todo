@@ -1,0 +1,9 @@
+.list {
+  margin-left: 15%;
+  padding: 3%;
+}
+
+.list:hover {
+  background-color: #ffffff;
+  cursor: pointer;
+}

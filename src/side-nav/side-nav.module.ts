@@ -3,10 +3,11 @@ import { CommonModule } from '@angular/common';
 
 import { SideNavRoutingModule } from './side-nav-routing.module';
 import { SideNavComponent } from './component/side-nav/side-nav.component';
+import { SideNavListItemComponent } from './component/side-nav-list-item/side-nav-list-item.component';
 
 
 @NgModule({
-  declarations: [SideNavComponent],
+  declarations: [SideNavComponent, SideNavListItemComponent],
   imports: [
     CommonModule,
     SideNavRoutingModule
