@@ -1,4 +1,9 @@
 .sideNav {
   padding-top: 10%;
-  
+  border-bottom: 2px solid #efefef;
+}
+
+.newList {
+  padding-top: 10%;
+  margin-left: 15%
 }
