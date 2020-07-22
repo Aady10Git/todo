@@ -1,5 +1,6 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ViewContainerRef, ComponentFactoryResolver, ViewChild, Injector, EventEmitter } from '@angular/core';
 import { CdkDragDrop, moveItemInArray } from '@angular/cdk/drag-drop';
+
 
 
 @Component({
@@ -8,26 +9,32 @@ import { CdkDragDrop, moveItemInArray } from '@angular/cdk/drag-drop';
   styleUrls: ['./new-list.component.css']
 })
 export class NewListComponent implements OnInit {
-
-  constructor() { }
+  @ViewChild('inputField', { read: ViewContainerRef }) inputField: ViewContainerRef;
+  constructor(private viewContainerRef: ViewContainerRef,
+    private cfr: ComponentFactoryResolver,
+    private injector: Injector) { }
 
   title = 'my-drag-drop';
 
-  movies = [
-    'Episode I - The Phantom Menace',
-    'Episode II - Attack of the Clones',
-    'Episode III - Revenge of the Sith',
-    'Episode IV - A New Hope',
-    'Episode V - The Empire Strikes Back',
-    'Episode VI - Return of the Jedi',
-    'Episode VII - The Force Awakens',
-    'Episode VIII - The Last Jedi'
-  ];
+  userList = [];
 
   ngOnInit() {
   }
 
   drop(event: CdkDragDrop<string[]>) {
-    moveItemInArray(this.movies, event.previousIndex, event.currentIndex);
+    moveItemInArray(this.userList, event.previousIndex, event.currentIndex);
+  }
+
+  async onAddListClick() {
+    this.inputField.clear();
+    const { NewListInputFieldComponent } = await import('../new-list-input-field/new-list-input-field.component');
+    const factory = this.cfr.resolveComponentFactory(NewListInputFieldComponent);
+    const createdComponent = this.inputField.createComponent(factory, null, this.injector);
+    createdComponent.instance.newListInputField = 'Untitled List';
+    createdComponent.instance.onTickClick.subscribe(() => {
+      this.userList.unshift(createdComponent.instance.newListInputField);
+      this.inputField.clear();
+    });
+
   }
 }

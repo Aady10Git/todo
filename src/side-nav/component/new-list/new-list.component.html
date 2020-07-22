@@ -1,11 +1,13 @@
 <div>
-  <button><i class="fa fa-plus"></i> Add List</button>
+  <div class="addButton align-items-center d-flex" (click)="onAddListClick()"><i class="fa fa-plus fa-2x addIcon"></i>&nbsp; Add List</div>
+  <ng-container #inputField></ng-container>
 </div>
 <div cdkDropList class="example-list" (cdkDropListDropped)="drop($event)">
 
-  <div class="example-box" *ngFor="let movie of movies" cdkDrag>
+  <div class="example-box" *ngFor="let item of userList" cdkDrag>
     <div class="example-custom-placeholder" *cdkDragPlaceholder></div>
-    {{movie}}
+    <i class="fa fa-bars fa-2x mr-2"></i>
+    {{item}}
   </div>
   
 </div>
